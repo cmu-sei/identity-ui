@@ -1,0 +1,67 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<ng-container *ngIf="resource">
+  <div>
+
+    <div *ngIf="form" class="text-left">
+      <form [formGroup]="form" (ngSubmit)="save()">
+
+        <app-collapse-panel label="General" visible="true">
+
+          <app-input-text label="Identifier" field="name"
+            maxlength="50" [control]="form.controls.name">
+            Enter a unique name with no spaces.
+          </app-input-text>
+
+          <app-input-text label="Display Name" field="displayName"
+            maxlength="100" [control]="form.controls.displayName">
+          </app-input-text>
+
+          <app-input-checkbox label="Public Resource" field="default"
+            [control]="form.controls.default">
+            By default, only clients you manage can request this resource.
+          </app-input-checkbox>
+
+          <app-input-checkbox
+            label="Resource Enabled" field="enabled"
+            [control]="form.controls.enabled">
+            Only an Admin can set this.
+          </app-input-checkbox>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Managers">
+          <button type="button" class="btn btn-secondary mr-2" (click)="newInvite()">Generate Invite Url</button>
+          <strong *ngIf="invited" class="text text-success">&#x2713;</strong>
+          <p class="form-text text-muted"><small>
+            Adds new invitation url to clipboard. Previous invitations are invalidated.
+          </small></p>
+
+          <app-input-list label="" field="managers" [control]="form.controls.managers">
+          </app-input-list>
+
+        </app-collapse-panel>
+
+        <div class="text-center">
+
+          <app-error-list [errors]="errors"></app-error-list>
+
+          <button type="submit"
+            [disabled]="form.pristine || !form.valid"
+            class="btn btn-primary btn-lg px-8">
+            Save
+          </button>
+
+          <hr/>
+
+          <app-confirm-button name="Delete" classlist="btn btn-secondary px-8"
+            (value)="delete($event)">
+            Are you sure you want to delete this resource?
+          </app-confirm-button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

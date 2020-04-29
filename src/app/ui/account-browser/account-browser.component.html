@@ -1,0 +1,60 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<h1 class="display-4">Accounts</h1>
+
+<div [class.d-none]="selected || showImport || showOverride">
+
+  <app-list-pager #pager [search]="initialPager" [count]="count"
+  (changed)="fetch($event)"></app-list-pager>
+
+  <table class="table table-borderless text-left">
+    <thead class="sr-only">
+      <th>Avatar</th>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Id</th>
+      <th>State</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of accounts | async" class="listitem" tabindex="0"
+        (click)="select(account)" (keyup.enter)="select(account)" (keyup.space)="select(account)">
+          <td><img *ngIf="account.avatar" [src]="account.avatar" alt="avatar" width="48px"/></td>
+          <td><span aria-label="username" class="">{{ account.username }}</span></td>
+          <td><span aria-label="name" class="">{{ account.name }}</span></td>
+          <td><span aria-label="id" class=""><small>{{ account.globalId | slice:0:8 }}</small></span></td>
+          <td>
+            <span aria-label="state manager" class="icon" *ngIf="account.role !== 'Member'">&#x272a;</span>
+            <span aria-label="state disabled" class="icon" *ngIf="account.status !== 'Enabled'">&#x2296;</span>
+            <span aria-label="state locked" class="icon" *ngIf="account.lockedSeconds > 0">&#x2296;</span>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <button type="button" class="btn btn-link" aria-label="open account import panel"
+    (click)="showImport=!showImport">New Account</button> |
+
+  <button type="button" class="btn btn-link" aria-label="open override code panel"
+    (click)="showOverride=!showOverride">New Override</button>
+
+  <hr />
+
+</div>
+
+<div *ngIf="selected" class="text-left">
+  <app-back-button [label]="selected?.username" (back)="clear()"></app-back-button>
+  <app-account-editor [account]="selected" (deleted)="deleted()" ></app-account-editor>
+</div>
+
+<div *ngIf="showImport" class="text-left">
+  <app-back-button label="Import" (back)="showImport=false"></app-back-button>
+  <app-account-import></app-account-import>
+</div>
+
+<div *ngIf="showOverride" class="text-left">
+  <app-back-button label="Override" (back)="showOverride=false"></app-back-button>
+  <app-override-code></app-override-code>
+</div>

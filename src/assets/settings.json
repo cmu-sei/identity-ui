@@ -1,0 +1,22 @@
+{
+    "applicationName": "Foundry ID",
+    "apiUrl": "http://localhost:5000",
+    "commit": "##COMMIT##",
+    "imageFolders": [
+      {
+        "folder": "p",
+        "field": "avatar",
+        "browseable": false
+      },
+      {
+        "folder": "o",
+        "field": "orgLogo",
+        "browseable": true
+      },
+      {
+        "folder": "u",
+        "field": "unitLogo",
+        "browseable": true
+      }
+    ]
+}

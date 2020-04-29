@@ -1,0 +1,11 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="control" class="form-check mb-4">
+  <input type="checkbox" class="form-check-input" [id]="field"
+    [formControl]="control" />
+  <label class="form-check-label" [for]="field">{{label}}</label>
+  <small class="form-text text-muted">
+    <ng-content></ng-content>
+  </small>
+</div>

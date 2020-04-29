@@ -1,0 +1,28 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div>
+  <label>
+    <input type="file" style="display:none;" (change)="selectorChanged($event)" aria-label="select file from computer">
+    <a *ngIf="!selectedFileList" class="btn btn-primary btn-sm" (click)="initCroppie()" style="color:white">Choose File</a>
+  </label>
+  <div #croppieDiv ></div>
+  <div *ngIf="croppie">
+    <p class="small">
+      Add some descriptive tags to help others find it. Example:
+    </p>
+    <div>
+      <ul class="list-unstyled small">
+        <li>mil army arcyber cpb</li>
+        <li>mil usaf afcyber 999nws</li>
+      </ul>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Descriptive Tags"
+          [(ngModel)]="descriptiveName">
+    </div>
+    <button class="btn btn-secondary btn-lg mr-2"
+      [disabled]="descriptiveName?.length < 4"
+      (click)="upload()">Upload</button>
+  </div>
+</div>

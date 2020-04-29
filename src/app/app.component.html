@@ -1,0 +1,30 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<a class="sr-only sr-only-focusable" href="profile">Skip to profile</a>
+<a class="sr-only sr-only-focusable" href="manage">Skip to resources</a>
+<header class="jumbotron jumbotron-fluid mb-0">
+    <div class="container">
+        <p class="display-4"><a class="" aria-label="Home" href="{{apiUrl}}/">{{appName}}</a></p>
+        <p class="lead">Serving OpenId Connect Identity</p>
+    </div>
+</header>
+
+<nav class="navbar navbar-light bg-light">
+    <a class="nav-item nav-link" href="{{apiUrl}}/">Home</a>
+    <a class="nav-item nav-link" href="{{apiUrl}}/grants">Grants</a>
+    <a class="nav-item nav-link" routerLink="profile">Profile</a>
+    <a class="nav-item nav-link" routerLink="manage">Integration</a>
+    <a *ngIf="privileged" class="nav-item nav-link" routerLink="account">Accounts</a>
+    <a class="nav-item nav-link" href="{{apiUrl}}/account/logout">Logout</a>
+</nav>
+
+<main id="main" class="container">
+  <div class="row">
+    <div class="col panel text-center">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>
+
+<footer class="footer mt-8"></footer>

@@ -1,0 +1,199 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<ng-container *ngIf="client">
+  <div>
+
+    <div *ngIf="form" class="text-left">
+      <form [formGroup]="form" (ngSubmit)="save()">
+
+        <app-collapse-panel label="General" visible="true">
+
+          <app-input-text label="Identifier" field="name"
+            maxlength="50" [control]="form.controls.name">
+            Enter a unique name with no spaces.
+          </app-input-text>
+
+          <app-input-text label="Display Name" field="displayName"
+            maxlength="100" [control]="form.controls.displayName">
+          </app-input-text>
+
+          <div class="form-group">
+            <label for="grants">Grant Type</label>
+            <select id="grants" class="form-control" formControlName="grants">
+              <option value="authorization_code">Auth Code (recommended for interactive apps)</option>
+              <option value="client_credentials">Client Credentials (recommended for non-interactive apps)</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="implicit">Implicit</option>
+              <option value="password">Resource Owner</option>
+            </select>
+            <small class="form-text text-muted">All selections include Client Credientials grant.</small>
+          </div>
+
+          <app-input-checkbox *ngIf="form.value.grants === 'authorization_code'"
+            label="Require PKCE (recommended)" field="requirePkce"
+            [control]="form.controls.requirePkce"></app-input-checkbox>
+
+          <app-input-text label="Scopes" field="scopes"
+            maxlength="200" [control]="form.controls.scopes">
+            Some scopes must be set by an administrator.
+          </app-input-text>
+
+          <app-input-checkbox
+            label="Client Enabled" field="enabled"
+            [control]="form.controls.enabled">
+            Only an Admin can set this.
+          </app-input-checkbox>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Consent Behavior">
+
+          <app-input-checkbox label="Require Consent" field="requireConsent"
+            [control]="form.controls.requireConsent">
+          </app-input-checkbox>
+
+          <!-- <app-input-checkbox label="Allow Remember Consent" field="allowRememberConsent"
+            [control]="form.controls.allowRememberConsent">
+          </app-input-checkbox> -->
+
+          <app-input-timespan label="Consent Lifetime" field="consentLifetime"
+            [control]="form.controls.consentLifetime"></app-input-timespan>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Urls">
+
+          <app-input-text label="Client Url" field="url"
+            maxlength="200" [control]="form.controls.url">
+            If your client has an address.
+          </app-input-text>
+
+          <div [class.d-none]="!form.value.url">
+
+            <app-input-checkbox label="Publish"
+              field="publish"
+              [control]="form.controls.published">
+              Show application url on home page.
+            </app-input-checkbox>
+
+            <app-input-list label="Redirect Urls" field="redirectUrls" maxlength="200"
+              [control]="form.controls.redirectUrls"></app-input-list>
+            <app-input-list label="Post Logout Urls" field="postLogoutUrls" maxlength="200"
+              [control]="form.controls.postLogoutUrls"></app-input-list>
+            <app-input-list label="Cors Urls" field="corsUrls" maxlength="200"
+              [control]="form.controls.corsUrls"></app-input-list>
+            <app-input-text label="Front Channel Logout Url" field="frontChannelLogoutUrl" maxlength="200"
+              [control]="form.controls.frontChannelLogoutUrl"></app-input-text>
+            <app-input-text label="Back Channel Logout Url" field="backChannelLogoutUrl" maxlength="200"
+              [control]="form.controls.backChannelLogoutUrl"></app-input-text>
+
+          </div>
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Token Behavior">
+
+          <app-input-checkbox label="Include User Claims in Id Token"
+            field="alwaysIncludeUserClaimsInIdToken"
+            [control]="form.controls.alwaysIncludeUserClaimsInIdToken">
+            By default client get user claims from the user endpoint.
+          </app-input-checkbox>
+
+          <app-input-timespan label="Id Token Lifetime" field="identityTokenLifetime"
+            [control]="form.controls.identityTokenLifetime"></app-input-timespan>
+
+          <app-input-timespan label="Auth Code Lifetime" field="authorizationCodeLifetime"
+            [control]="form.controls.authorizationCodeLifetime"></app-input-timespan>
+
+          <app-input-timespan label="Access Token Lifetime" field="accessTokenLifetime"
+            [control]="form.controls.accessTokenLifetime"></app-input-timespan>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Refresh Tokens" *ngIf="form.value.grants !== 'implicit'">
+
+          <app-input-checkbox label="Allow Refresh Tokens" field="allowOfflineAccess"
+            [control]="form.controls.allowOfflineAccess">
+            You must also request the 'offline_access' scope.
+          </app-input-checkbox>
+
+          <app-input-checkbox label="Update Claims on Refresh" field="updateAccessTokenClaimsOnRefresh"
+            [control]="form.controls.updateAccessTokenClaimsOnRefresh">
+          </app-input-checkbox>
+
+          <app-input-checkbox label="Require Different Refresh Token Handle"
+            field="useOneTimeRefreshTokens"
+            [control]="form.controls.useOneTimeRefreshTokens">
+            By default the same refresh token is re-used until expiration.
+          </app-input-checkbox>
+
+          <app-input-timespan label="Absolute Refresh Timeout" field="absoluteRefreshTokenLifetime"
+            [control]="form.controls.absoluteRefreshTokenLifetime"></app-input-timespan>
+
+          <app-input-timespan label="Sliding Refresh Timeout" field="slidingRefreshTokenLifetime"
+            [control]="form.controls.slidingRefreshTokenLifetime"></app-input-timespan>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Client Claims">
+
+          <app-input-checkbox label="Always send client claims" field="alwaysSendClientClaims"
+            [control]="form.controls.alwaysSendClientClaims">
+            By default client claims are only sent with Client Credentials Grant.
+          </app-input-checkbox>
+
+          <app-input-text label="Prefix" field="clientClaimPrefix"
+            maxlength="10" [control]="form.controls.clientClaimsPrefix"></app-input-text>
+
+          <app-input-list label="Claims" field="claims"
+            maxlength="50" [control]="form.controls.claims">
+            Format: key = value
+          </app-input-list>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Client Secrets">
+
+          <button type="button" class="btn btn-secondary" (click)="newSecret()">Generate New Secret</button>
+          <p class="form-text text-muted"><small>
+            Secret only visible immediately after generation.
+          </small></p>
+
+          <app-input-list label="" field="secrets" [control]="form.controls.secrets">
+          </app-input-list>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Managers">
+          <button type="button" class="btn btn-secondary mr-2" (click)="newInvite()">Generate Invite Url</button>
+          <strong *ngIf="invited" class="text text-success">&#x2713;</strong>
+          <p class="form-text text-muted"><small>
+            Adds new invitation url to clipboard. Previous invitations are invalidated.
+          </small></p>
+
+          <app-input-list label="" field="managers" [control]="form.controls.managers">
+          </app-input-list>
+
+        </app-collapse-panel>
+
+        <div class="text-center">
+
+          <app-error-list [errors]="errors"></app-error-list>
+
+          <button type="submit"
+            [disabled]="form.pristine || !form.valid"
+            class="btn btn-primary btn-lg px-8">
+            Save
+          </button>
+
+          <hr/>
+
+          <app-confirm-button name="Delete" classlist="btn btn-secondary px-8"
+            (value)="delete($event)">
+            Are you sure you want to delete this client?
+          </app-confirm-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

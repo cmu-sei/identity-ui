@@ -1,0 +1,14 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<p *ngIf="browseable">
+  <button (click)="browsing=!browsing" class="btn btn-link">{{browsing ? "Select from my computer" : "Select from existing"}}</button>
+</p>
+
+<div *ngIf="!browsing">
+  <app-imageuploader [path]="path" (selected)="onSelected($event)"></app-imageuploader>
+</div>
+
+<div *ngIf="browsing">
+  <app-imagebrowser [path]="path" (selected)="onSelected($event)"></app-imagebrowser>
+</div>

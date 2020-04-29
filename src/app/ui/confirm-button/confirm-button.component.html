@@ -1,0 +1,18 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<button *ngIf="!active" [class]="classlist || 'btn btn-primary'"
+  [disabled]="disabled" (click)="toggle()">{{name}}</button>
+<div *ngIf="active">
+    <div class="row">
+        <div class="col mb-2">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button class="btn btn-primary spacer" (click)="clicked(true)">Confirm</button>
+            <button class="btn btn-secondary" (click)="clicked(false)">Cancel</button>
+        </div>
+    </div>
+</div>

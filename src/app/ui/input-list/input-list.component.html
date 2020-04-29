@@ -1,0 +1,31 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="control" class="form-group mb-4">
+
+  <label [for]="field">{{label}}</label>
+
+  <div class="input-group mb-2" *ngIf="label">
+    <input type="text" class="form-control" [id]="field"
+      [placeholder]="placeholder" [maxlength]="maxlength"
+      autocomplete="off" [formControl]="input" />
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"
+        [disabled]="!input.value?.trim()" (click)="addItem()" aria-label="add item to list">+</button>
+    </div>
+  </div>
+  <small class="form-text text-muted">
+    <ng-content></ng-content>
+  </small>
+
+
+  <div *ngFor="let item of control.value">
+    <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
+      aria-label="toggle remove undo" (click)="removeItem(item)">
+      {{item.deleted ? "&#x27f2;" : "&#x2717;"}}
+    </button>
+    <span *ngIf="item.deleted" aria-label="list item"><del>{{item['value']}}</del></span>
+    <span *ngIf="!item.deleted" aria-label="list item">{{item['value']}}</span>
+  </div>
+
+</div>

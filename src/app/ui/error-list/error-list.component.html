@@ -1,0 +1,12 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngFor="let err of errors"
+  class="alert text-danger alert-dismissible fade show" role="alert">
+  <span>
+    {{ err?.error?.message || err?.message || err?.statusText | spaces}}.
+  </span>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close(err)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

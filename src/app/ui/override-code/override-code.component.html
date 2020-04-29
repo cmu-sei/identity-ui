@@ -1,0 +1,33 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="form-group mb-4">
+  <form [formGroup]="form">
+
+    <label for="code">Override Code</label>
+
+    <div class="input-group mb-2">
+      <input type="text" class="form-control" id="code"
+        placeholder="code" maxlength="20"
+        autocomplete="off" [formControl]="form.controls.code" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button"
+          [disabled]="!form.value?.code?.trim()" (click)="add()"
+          aria-label="add code">+</button>
+      </div>
+      <small class="form-text text-muted">
+        Add a global code for registration and password resets in email-less deployments.
+      </small>
+    </div>
+  </form>
+
+  <app-error-list [errors]="errors"></app-error-list>
+
+  <div *ngFor="let item of codes">
+    <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
+      (click)="remove(item)" aria-label="delete code">&#x2717;
+    </button>
+    <span aria-label="list item">{{item.description}} {{item.whenCreated | date}}  &mdash; {{item.code}}</span>
+  </div>
+
+</div>

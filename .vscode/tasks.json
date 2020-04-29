@@ -1,0 +1,22 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "api-gen",
+            "command": "node swagger-ng.js -u http://localhost:5000/api/v1/swagger.json -o src/app/api -m TermSkipTakeSortFilters:Search",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$tsc"
+        }
+    ]
+}

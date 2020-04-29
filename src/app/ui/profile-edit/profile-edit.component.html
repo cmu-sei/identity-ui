@@ -1,0 +1,91 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="profile">
+  <p *ngIf="!formValid">
+    <span class="text text-warning">Name is required.</span>
+  </p>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Full Name"
+      aria-label="enter name"
+      maxlength="100"
+      [(ngModel)]="profile.name"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bio/Status"
+      aria-label="enter personal status or bio"
+      maxlength="255"
+      [(ngModel)]="profile.biography"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Organization"
+      aria-label="enter organization name"
+      maxlength="50"
+      [(ngModel)]="profile.org"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Unit"
+      aria-label="enter organization unit name"
+      maxlength="50"
+      [(ngModel)]="profile.unit"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <div class="card-group">
+      <div class="card">
+        <img class="rounded card-img-top" alt="organization logo" src="{{profile.orgLogo}}" />
+        <div class="card-body">
+          <span class="badge badge-primary" *ngIf="uploadTarget === profile.orgLogo">Service Logo</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.orgLogo">Service Logo</small>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.orgLogo)">Change</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="rounded card-img-top" alt="user avatar" src="{{profile.avatar}}" />
+        <div class="card-body">
+          <span class="badge badge-primary" *ngIf="uploadTarget === profile.avatar">Avatar</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.avatar">Avatar</small>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.avatar)">Change</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="rounded card-img-top" alt="unit logo" src="{{profile.unitLogo}}" />
+        <div class="card-body">
+          <span class="badge badge-primary" *ngIf="uploadTarget === profile.unitLogo">Unit Logo</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.unitLogo">Unit Logo</small>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.unitLogo)">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

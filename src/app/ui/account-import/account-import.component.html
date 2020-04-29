@@ -1,0 +1,38 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="form-group">
+  <label for="accountlist">Enter list of accounts</label>
+  <textarea id="accountlist" rows="7" class="form-control" [formControl]="input"
+    aria-label="one email address or mailto url per line"
+    placeholder="First Last &lt;email@some.site&gt; or email@some.site"></textarea>
+  <small class="text text-muted">One mailto address per line.</small>
+</div>
+
+<div class="form-group">
+  <label for="passwd">Initial Password</label>
+  <input id="passwd" class="form-control" [formControl]="passwd" type="password" autocomplete="off"/>
+  <small class="text text-muted">Not recommended.  Better to let users "reset password."</small>
+</div>
+
+<button type="button" class="btn btn-secondary" [disabled]="!input.value || progressBar" (click)="import()">Import</button>
+<span class="ml-2" [innerHTML]="progressBar"></span>
+
+<table *ngIf="results" class="table table-borderless">
+  <caption class="sr-only"><span class="badge badge-secondary px-4">Import Results</span></caption>
+  <thead class="sr-only">
+    <th>Name</th>
+    <th>Display Name</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of results">
+      <td>{{result.displayName}}</td>
+      <td>{{result.username}}</td>
+      <td>
+        <span *ngIf="!result.message" class="text text-success" aria-label="success">&#x2713;</span>
+        <span *ngIf="result.message" class="text text-warning" aria-label="failure">&#x2715; {{result.message | spaces}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

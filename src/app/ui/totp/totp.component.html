@@ -1,0 +1,66 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="text-left">
+
+  <p>
+    Multi-factor authentication can be satisfied with a Time-based One Time Password (TOTP).
+    Generate a secret key, and import that key into a TOTP authentiation application, like
+    Duo Mobile or Google Authenticator. Use such a phone app to scan the barcode.
+    Or you can import the key manually.
+  </p>
+
+  <div class="alert alert-warning">
+    <span class="sr-only">Warning: </span>
+    Note: Generating the key multiple times will invalidate previous keys.
+    Only the last key generated will be valid.
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-secondary mb-4" (click)="totp()">Generate</button>
+  </div>
+
+  <div *ngIf="url">
+    <strong>Manual Input</strong>
+    <ul class="">
+      <li>Copy left to right, top to bottom.</li>
+      <li>Don't include spaces.</li>
+      <li>Valid characters are <em>a-z</em> and <em>2-8</em>.</li>
+      <li>There are no zeros or ones.</li>
+    </ul>
+    <p class="code" aria-label="generated secret">{{secret}}</p>
+
+    <strong>Optical Input</strong>
+    <ul class="">
+      <li>point your device's camera at the barcode to import the key.</li>
+    </ul>
+
+    <div class="qrbox text-center" aria-hidden="true">
+      <qrcode [qrdata]="url" [size]="200"></qrcode>
+    </div>
+
+    <div class="mt-4">
+      After importing the secret key, test a code:
+      <input type="text" placeholder="Code" maxlength="6"
+        aria-label="enter 6 code from totp app" class="form-control" [(ngModel)]="code" (keyup)="test()">
+    </div>
+
+    <div *ngIf="resultText">
+      <p>
+        <code [class.text-success]="result.valid" aria-label="test result">{{resultText}}</code>
+      </p>
+      <div *ngIf="variance">
+        {{variance}}
+        <table class="table table-sm text-center">
+          <thead>
+            <tr><th>Location</th><th>Timestamp</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>server</td><td>{{result.timestamp | date:'medium'}}</td></tr>
+            <tr><td>local</td><td>{{localtime | date:'medium'}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

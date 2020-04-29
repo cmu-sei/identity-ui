@@ -1,0 +1,12 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="form-group">
+  <label [for]="field">{{ label }}</label>
+  <input [id]="field" type="text" class="form-control"
+    [placeholder]="placeholder" [maxlength]="maxlength"
+    autocomplete="off" [formControl]="control" />
+  <small class="form-text text-muted">
+    <ng-content></ng-content>
+  </small>
+</div>

@@ -1,0 +1,14 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="form-group">
+    <input type="text" class="form-control" placeholder="Search" #term
+      aria-label="Search for existing logos" (keyup)="termChanged(term.value)">
+</div>
+<div *ngIf="urlList.length">
+  <img *ngFor="let i of urlList" class="rounded" alt="logo {{i.split('/').pop()}}" src="{{i}}?x=100" width="100px" (click)="select(i)"/>
+  <div>
+    <button *ngIf="skip > take+1" class="btn btn-link btn-sm float-left" aria-label="previous"(click)="prev()">prev</button>
+    <button *ngIf="hasMore" class="btn btn-link btn-sm float-right" aria-label="next"(click)="next()">next</button>
+  </div>
+</div>

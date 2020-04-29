@@ -1,0 +1,15 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div>
+  <button type="button" (click)="toggle()" class="btn btn-none" aria-label="toggle expand collapse">
+    <h5>
+      <span *ngIf="visible" aria-label="expanded">&#x25bd;</span>
+      <span *ngIf="!visible" aria-label="collapsed">&#x25b7;</span>
+      {{label}}
+    </h5>
+  </button>
+  <div [class.d-none]="!visible" class="p-4 mb-4">
+    <ng-content></ng-content>
+  </div>
+</div>

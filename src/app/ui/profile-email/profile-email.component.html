@@ -1,0 +1,39 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<ng-content></ng-content>
+
+<form [formGroup]="form">
+
+  <p *ngIf="model.allowedDomains"><small>Valid domains: {{model.allowedDomains}}</small></p>
+
+  <div class="input-group mb-2">
+    <input type="text" class="form-control" autocomplete="off"
+      placeholder="Email Address" maxlength="50" aria-label="enter email address"
+      [formControl]="form.controls.username" />
+  </div>
+
+  <div class="input-group mb-2">
+    <input type="text" class="form-control" autocomplete="off"
+      placeholder="Code" maxlength="50" aria-label="enter verification code"
+      [formControl]="form.controls.code" />
+  </div>
+
+  <ul class="list-unstyled text text-warning" aria-label="form validation errors" aria-live="polite">
+    <li *ngIf="form.controls.username.value && form.controls.username.errors?.email">Invalid email address</li>
+    <li *ngIf="form.controls.username.value && form.controls.username.errors?.domain">Invalid email domain</li>
+  </ul>
+
+  <button type="submit" class="btn btn-primary mr-2"
+    [disabled]="!form.valid || progressBar" aria-label="submit form"
+    (click)="addCreds()">Submit</button>
+
+  <button type="button" class="btn btn-secondary btn-sm mr-2"
+    [disabled]="!form.controls.username.valid || progressBar" aria-label="send verification code"
+    (click)="getVerifyCode()">Send Verification Code</button>
+
+  <span [innerHtml]="progressBar" aria-label="progress bar" aria-live="polite"></span>
+
+  <app-error-list [errors]="errors"></app-error-list>
+
+</form>

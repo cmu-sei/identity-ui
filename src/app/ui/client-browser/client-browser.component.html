@@ -1,0 +1,30 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<app-resource-nav></app-resource-nav>
+
+<div [class.d-none]="selected">
+  <app-list-pager #pager [search]="initialPager" [count]="count"
+  (changed)="fetch($event)"></app-list-pager>
+
+  <ul class="list-unstyled">
+    <li *ngFor="let client of clients | async">
+      <button class="btn btn-link py-0" aria-label="open edit panel"
+        (click)="select(client)">{{client.displayName}}</button>
+    </li>
+  </ul>
+
+  <hr />
+  <button type="button" class="btn btn-link" (click)="add()">Add New Client</button>
+
+</div>
+
+<div *ngIf="selected" class="text-left">
+
+  <app-back-button [label]="selected.displayName" (back)="clear()"></app-back-button>
+
+  <app-client-editor [id]="selected.id"
+    (deleted)="deleted()" (updated)="updated($event)">
+  </app-client-editor>
+
+</div>

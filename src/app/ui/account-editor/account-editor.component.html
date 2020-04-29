@@ -1,0 +1,82 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="account" class="text-center">
+
+  <p *ngIf="account.avatar">
+    <img width="75" class="rounded" alt="organization logo" src="{{ account.orgLogo }}" />
+    <img width="150" class="rounded" alt="user avatar" src="{{ account.avatar }}" />
+    <img width="75" class="rounded" alt="unit logo" src="{{ account.unitLogo }}" />
+  </p>
+
+  <table class="table table-borderless">
+    <tbody>
+
+      <tr *ngFor="let p of account.properties">
+        <th class="text-right">{{p.key}}</th>
+        <td class="text-left">{{p.value}}</td>
+      </tr>
+
+      <tr>
+        <th class="text-right">State</th>
+        <td class="text-left">
+          <button class="btn btn-secondary py-0 px-2 mr-2"
+            (click)="state()" aria-label="toggle enabled disabled">
+            <span [class.text-warning]="account.status==='Disabled'" aria-hidden="true">&#x2296;</span> |
+            <span [class.text-warning]="account.status!=='Disabled'" aria-hidden="true">&#x2713;</span>
+          </button>
+          {{ account.status }}
+        </td>
+      </tr>
+
+      <tr>
+        <th class="text-right">Role</th>
+        <td class="text-left">
+          <button class="btn btn-secondary py-0 px-2 mr-2"
+            (click)="role()" aria-label="toggle manager member">
+            <span [class.text-warning]="account.role==='Member'" aria-hidden="true">&#x25a3;</span> |
+            <span [class.text-warning]="account.role!=='Member'" aria-hidden="true">&#x272a;</span>
+          </button>
+          {{ account.role }}
+        </td>
+      </tr>
+
+      <tr *ngIf="account.lockedSeconds">
+        <th class="text-right">Locked</th>
+        <td class="text-left">
+          <button class="btn btn-secondary py-0 px-2 mr-2"
+            (click)="unlock()" aria-label="clear account lock">&#x27f2;</button>
+          ~ {{ account.lockedSeconds}} seconds
+        </td>
+      </tr>
+
+      <tr>
+        <th class="text-right">Code</th>
+        <td class="text-left">
+          <button class="btn btn-secondary py-0 px-3 mr-2"
+            (click)="code()" aria-label="generate account code">&#xff0b;</button>
+          {{newCode}}
+        </td>
+      </tr>
+
+      <tr>
+        <th class="text-right">Since</th>
+        <td class="text-left">{{account.whenCreated | date }}</td>
+      </tr>
+
+      <tr>
+        <th class="text-right">Login</th>
+        <td class="text-left" aria-label="last login date from ip">{{ account.lastLogin | date}} from {{account.lastIp}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <small class="text-muted" aria-label="account id">{{account?.globalId}}</small>
+
+  <hr />
+
+  <!-- <app-confirm-button name="Delete" classlist="btn btn-secondary" (value)="delete($event)">
+    Are you sure you want to delete this account?
+  </app-confirm-button> -->
+</div>

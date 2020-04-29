@@ -1,0 +1,32 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="model">
+
+  <ng-content></ng-content>
+
+  <div class="mb-4">
+    If this is the account you want to <em>DISCARD</em>,
+    get a Merge Code.
+    <div class="input-group">
+      <input type="text" readonly="true" tabindex="-1" class="form-control"
+        aria-label="retrieved merge code" [ngModel]="discardCode" />
+      <div class="input-group-append">
+        <button class="btn btn-secondary" (click)="getMergeCode()">Get Merge Code</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    If this is the account you want to <em>KEEP</em>, submit the Merge Code.
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Merge Code" aria-label="enter merge code"
+        autocomplete="off" [formControl]="mergeForm" />
+      <div class="input-group-append">
+        <button class="btn btn-secondary" (click)="applyMerge()">Submit Merge Code</button>
+      </div>
+    </div>
+    <span class="text text-success" aria-label="merge result">{{mergeResult}}</span>
+    <app-error-list [errors]="errors"></app-error-list>
+  </div>
+</div>

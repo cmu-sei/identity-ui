@@ -1,0 +1,158 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<h1 class="display-4">Profile</h1>
+
+<div *ngIf="profile" [class.d-none]="showEdit || showImageEdit || showTotp || showCreds">
+
+  <p class="lead" aria-label="profile name">{{ profile.name }}</p>
+
+  <p class="lead" aria-label="profile status or bio">
+    {{ profile.biography || "No comment." }}
+  </p>
+
+  <p *ngIf="profile.avatar">
+    <img width="75" class="rounded" alt="organization logo" src="{{ profile.orgLogo }}" />
+    <img width="150" class="rounded" alt="user avatar" src="{{ profile.avatar }}" />
+    <img width="75" class="rounded" alt="unit logo" src="{{ profile.unitLogo }}" />
+  </p>
+
+  <p>
+    <button (click)="showEdit = !showEdit" aria-label="open edit panel" class="btn btn-link">Edit</button>
+  </p>
+  <hr />
+  <p>
+    <button (click)="showCreds = !showCreds" aria-label="open credentials panel" class="btn btn-link">
+      Credentials
+    </button> |
+    <button (click)="showTotp = !showTotp" aria-label="open 2fa panel" class="btn btn-link">
+      Configure 2FA
+    </button>
+  </p>
+</div>
+
+<div *ngIf="showEdit">
+
+  <app-back-button label="Edit-Profile" (back)="clear()"></app-back-button>
+
+  <!-- <app-profile-edit [profile]="profile" (imageRequest)="changeImage($event)"></app-profile-edit> -->
+
+  <p *ngIf="!formValid">
+    <span class="text text-warning">Name is required.</span>
+  </p>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Full Name"
+      aria-label="enter full name"
+      maxlength="100"
+      [(ngModel)]="profile.name"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bio/Status"
+      aria-label="enter status message or bio"
+      maxlength="255"
+      [(ngModel)]="profile.biography"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Organization"
+      aria-label="enter organization name"
+      maxlength="50"
+      [(ngModel)]="profile.org"
+      (blur)="save()"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Unit"
+      aria-label="enter organization unit name"
+      maxlength="50"
+      [(ngModel)]="profile.unit"
+      (blur)="save()"
+    />
+  </div>
+
+  <div *ngIf="profile.avatar" class="form-group">
+    <div class="card-group">
+      <div class="card">
+        <img class="rounded card-img-top" alt="organization logo" src="{{profile.orgLogo}}" />
+        <div class="card-body">
+          <span class="badge badge-secondary">Service Logo</span>
+          <!-- <span class="badge badge-primary" *ngIf="uploadTarget === profile.orgLogo">Service Logo</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.orgLogo">Service Logo</small> -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.orgLogo)" aria-label="change organization logo">Change</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="rounded card-img-top" alt="user avatar" src="{{profile.avatar}}" />
+        <div class="card-body">
+          <span class="badge badge-secondary">Avatar</span>
+          <!-- <span class="badge badge-primary" *ngIf="uploadTarget === profile.avatar">Avatar</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.avatar">Avatar</small> -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.avatar)" aria-label="change avatar">Change</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="rounded card-img-top" alt="unit logo" src="{{profile.unitLogo}}" />
+        <div class="card-body">
+          <span class="badge badge-secondary">Unit Logo</span>
+          <!-- <span class="badge badge-primary" *ngIf="uploadTarget === profile.unitLogo">Unit Logo</span>
+          <small class="text text-primary" *ngIf="uploadTarget !== profile.unitLogo">Unit Logo</small> -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-link btn-sm" (click)="changeImage(profile.unitLogo)" aria-label="change unit logo">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="showImageEdit">
+
+  <app-back-button label="Edit-Logo" (back)="clear()"></app-back-button>
+
+  <app-imageuploader
+    [path]="uploadTarget"
+    (selected)="imageSelected($event)"
+  >
+  </app-imageuploader>
+
+  <div class="mt-3" *ngIf="uploadTarget !== profile.avatar">
+    <hr />
+    <p>Or select an existing image:</p>
+    <app-imagebrowser [path]="uploadTarget" (selected)="imageSelected($event)">
+    </app-imagebrowser>
+  </div>
+</div>
+
+<div *ngIf="showTotp">
+  <app-back-button label="TOTP" (back)="clear()"></app-back-button>
+  <app-totp></app-totp>
+</div>
+
+<div *ngIf="showCreds" class="text-left">
+  <app-back-button label="Credentials" (back)="clear()"></app-back-button>
+  <app-profile-creds class="text-left"></app-profile-creds>
+</div>

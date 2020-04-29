@@ -1,0 +1,15 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="mb-2">
+    <input type="search" autocomplete="off" aria-label="enter search term"
+      class="form-control" placeholder="Search" [formControl]="term" />
+
+    <div *ngIf="search.skip > 0 || count === search.take" class="m-2">
+      <button class="btn btn-outline-secondary btn-sm mx-4" (click)="back()"
+        aria-label="previous" [disabled]="search.skip === 0">&#x25c0;</button>
+      <button class="btn btn-outline-secondary btn-sm mx-4"  (click)="next()"
+        aria-label="next" [disabled]="count < search.take">&#x25b6;</button>
+      <hr />
+    </div>
+</div>

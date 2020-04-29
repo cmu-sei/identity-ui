@@ -1,0 +1,57 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="model" class="text-left">
+
+  <div>
+    <h5>{{
+      model.credentialCount === 0 ||
+      model.allowMultipleCredentials
+        ? 'Add'
+        : 'Change'}} Email Address</h5>
+
+    <p><em>{{ model.emails.join(' | ') }}</em></p>
+
+    <app-profile-email [model]="model"></app-profile-email>
+    <hr />
+  </div>
+
+  <div *ngIf="model.credentialCount > 0">
+    <h5>{{ model.hasPassword ? 'Change' : 'Set' }} Password</h5>
+    <app-profile-password [model]="model"></app-profile-password>
+    <hr />
+  </div>
+
+  <div *ngIf="model.currentCertificateSubject">
+
+    <h5>Certificate</h5>
+
+    <p>
+      {{ model.currentCertificateSubject }} <br/>
+      <small>{{ model.currentCertificateIssuer }}</small>
+    </p>
+
+    <p *ngIf="!model.currentCertificateRegistered">
+      Would you like to register this certificate?
+      <button class="btn btn-secondary btn-sm mr-2" [disabled]="progressBar"
+        aria-label="register current certificate"
+        (click)="registerCert()">Register</button>
+      <span [innerHtml]="progressBar" aria-label="progress bar"></span>
+      <app-error-list [errors]="errors"></app-error-list>
+    </p>
+
+    <hr />
+  </div>
+
+  <div>
+    <h5>Merge accounts</h5>
+    <app-profile-merge [model]="model">
+        <p>
+          You can merge two accounts.  Generally this is useful if you
+          received an updated certificate that is different from your
+          previous certificate and logged in with it.
+        </p>
+    </app-profile-merge>
+  </div>
+
+</div>

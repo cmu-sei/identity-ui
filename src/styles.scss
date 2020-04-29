@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+$primary: #b00;
+$secondary: #067;
+$success: #085;
+$danger: #a60;
+
+// @import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$theme-colors: map-remove($theme-colors, "info", "light", "dark");
+// $theme-colors: map-merge(
+//   (
+//     "primary": #b00,
+//     "danger": #ff4136
+//   ),
+//   $theme-colors
+// );
+
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/code";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/forms";
+@import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/input-group";
+@import "../node_modules/bootstrap/scss/card";
+@import "../node_modules/bootstrap/scss/badge";
+@import "../node_modules/bootstrap/scss/jumbotron";
+@import "../node_modules/bootstrap/scss/media";
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/alert";
+@import "../node_modules/bootstrap/scss/tables";
+@import "../node_modules/bootstrap/scss/nav";
+@import "../node_modules/bootstrap/scss/navbar";
+@import "../node_modules/bootstrap/scss/close";
+
+.jumbotron {
+  a {
+    text-decoration: none;
+    color: $black;
+  }
+  a:hover {
+    color: $primary;
+  }
+}
+.panel {
+  max-width: 480px;
+  margin: auto;
+}
+img {
+  // border-radius: 6px;
+  margin: 2px;
+}

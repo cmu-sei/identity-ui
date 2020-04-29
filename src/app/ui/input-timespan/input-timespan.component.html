@@ -1,0 +1,22 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div *ngIf="control" class="form-group">
+  <label [for]="field">{{ label }}</label>
+  <input
+    [id]="field"
+    type="text"
+    class="form-control"
+    placeholder="Example: 5m, 1h, 3d"
+    maxlength="20"
+    autocomplete="off"
+    [formControl]="control"
+  />
+  <small
+    class="form-text"
+    [class.text-muted]="!control.hasError('pattern')"
+    [class.text-danger]="control.hasError('pattern') && control.touched"
+  >
+    Simple timespan, like: 30s, 5m, 1h, 3d
+  </small>
+</div>

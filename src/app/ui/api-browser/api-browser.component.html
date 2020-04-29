@@ -1,0 +1,49 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<app-resource-nav></app-resource-nav>
+
+<div [class.d-none]="selected">
+  <app-list-pager #pager [search]="initialPager" [count]="count"
+  (changed)="fetch($event)"></app-list-pager>
+
+  <ul class="list-unstyled">
+    <li *ngFor="let resource of apiResources | async">
+      <button class="btn btn-link py-0" (click)="select(resource)"
+        aria-label="open edit panel">{{resource.displayName}}</button>
+    </li>
+  </ul>
+
+  <hr />
+  <button type="button" class="btn btn-link" (click)="add()">Add New Resource</button>
+  <hr />
+
+  <app-collapse-panel label="Identity Resources">
+
+    <p>
+      Clients may request the following scopes.  Those not marked as <i>public</i>
+      must be allowed by an administrator.
+    </p>
+    <table class="table text-left">
+      <caption class="sr-only"><span class="badge badge-secondary px-4">Identity Resources</span></caption>
+      <thead>
+        <th class="text-left">Public</th>
+        <th class="text-left">Scope</th>
+        <th class="text-left">Claims</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of identityResources | async">
+          <td class="text-left"><span *ngIf="r.default" aria-label="public">&#x2713;</span></td>
+          <td class="text-left">{{r.name}}</td>
+          <td class="text-left text-muted">{{r.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </app-collapse-panel>
+</div>
+
+<div *ngIf="selected" class="text-left">
+  <app-back-button [label]="selected.name" (back)="clear()"></app-back-button>
+  <app-api-editor [id]="selected.id" (deleted)="deleted()" (updated)="updated($event)"></app-api-editor>
+</div>
