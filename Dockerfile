@@ -17,6 +17,7 @@ CMD ["npm", "serve"]
 FROM nginx:alpine
 WORKDIR /var/www
 COPY --from=dev /app/dist ui
+COPY --from=dev /app/LICENSE.MD ui/LICENSE.md
 COPY --from=dev /app/dist/index.html .
 COPY --from=dev /app/nginx-static.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
