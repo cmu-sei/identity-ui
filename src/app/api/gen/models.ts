@@ -307,3 +307,12 @@ export interface SearchParams {
   sort?: string;
   filter?: Array<string>;
 }
+
+export interface MailMessage {
+  to?: string;
+  cc?: string;
+  bcc?: string;
+  from?: string;
+  subject?: string;
+  body?: string;
+}

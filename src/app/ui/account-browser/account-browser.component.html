@@ -3,7 +3,7 @@
 
 <h1 class="display-4">Accounts</h1>
 
-<div [class.d-none]="selected || showImport || showOverride">
+<div [class.d-none]="selected || showImport || showOverride || showMailer">
 
   <app-list-pager #pager [search]="initialPager" [count]="count"
   (changed)="fetch($event)"></app-list-pager>
@@ -38,7 +38,10 @@
     (click)="showImport=!showImport">New Account</button> |
 
   <button type="button" class="btn btn-link" aria-label="open override code panel"
-    (click)="showOverride=!showOverride">New Override</button>
+    (click)="showOverride=!showOverride">New Override</button> |
+
+  <button type="button" class="btn btn-link" aria-label="open override code panel"
+    (click)="showMailer=!showMailer">Mailer</button>
 
   <hr />
 
@@ -57,4 +60,9 @@
 <div *ngIf="showOverride" class="text-left">
   <app-back-button label="Override" (back)="showOverride=false"></app-back-button>
   <app-override-code></app-override-code>
+</div>
+
+<div *ngIf="showMailer" class="text-left">
+  <app-back-button label="Mailer" (back)="showMailer=false"></app-back-button>
+  <app-account-mailer></app-account-mailer>
 </div>

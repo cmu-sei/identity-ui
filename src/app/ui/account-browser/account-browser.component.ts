@@ -23,6 +23,7 @@ export class AccountBrowserComponent extends BaseComponent implements OnInit {
   selectedIsNew = false;
   showImport = false;
   showOverride = false;
+  showMailer = false;
   count = 0;
   lastActive: HTMLElement;
 

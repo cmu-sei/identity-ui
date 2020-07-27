@@ -1,0 +1,39 @@
+<!-- Copyright 2020 Carnegie Mellon University. -->
+<!-- Released under a MIT (SEI) license. See LICENSE.md in the project root. -->
+
+<div class="form-group">
+  <label for="recipient">Recipient</label>
+  <input id="recipient" class="form-control" [formControl]="recipient" type="text" autocomplete="off"/>
+  <small class="text text-muted"><code>@here</code> for <em>everyone</em>. <code>@domain</code> for <em>domain</em>. (delimit multiples with <code>;</code>)</small>
+</div>
+
+<div class="form-group">
+  <label for="cc">Cc</label>
+  <input id="cc" class="form-control" placeholder="Cc" [formControl]="cc" type="text" autocomplete="off"/>
+</div>
+
+<div class="form-group">
+  <label for="bcc">Bcc</label>
+  <input id="bcc" class="form-control" placeholder="Bcc" [formControl]="bcc" type="text" autocomplete="off"/>
+</div>
+
+<div class="form-group">
+  <label for="from">From</label>
+  <input id="from" class="form-control" placeholder="From" [formControl]="from" type="text" autocomplete="off"/>
+  <small class="text text-muted">Leave blank for default. (Must be valid at mail server.)</small>
+</div>
+
+<div class="form-group">
+  <label for="subject">Subject</label>
+  <input id="subject" class="form-control" placeholder="Subject" [formControl]="subject" type="text" autocomplete="off"/>
+</div>
+
+<div class="form-group">
+  <label for="accountlist">Enter message</label>
+  <textarea id="message" rows="25" class="form-control" [formControl]="message"
+    aria-label="mail message"
+    placeholder="Message"></textarea>
+</div>
+
+<button type="button" class="btn btn-secondary" [disabled]="!message.value || progressBar" (click)="send()">Send</button>
+<span class="ml-2" [innerHTML]="progressBar"></span>
