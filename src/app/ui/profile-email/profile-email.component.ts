@@ -75,11 +75,16 @@ export class ProfileEmailComponent extends BaseComponent implements OnInit {
       return null;
     }
 
-    const list = model.allowedDomains.split(/[ ,|]/);
-    const domain = (ctx.value as string).split('@').pop();
+    const list = model.allowedDomains.split(/[ ,|]/)
+      .map(x => x.startsWith('.') ? x.substring(1) : x);
 
-    if (domain && list.find(x => x === domain)) {
-      return null;
+    const domain = (ctx.value as string).split('@').pop().split('.');
+
+    while (domain && domain.length > 0) {
+      if (list.find(x => x === domain.join('.'))) {
+        return null;
+      }
+      domain.shift();
     }
 
     return { domain: true };
