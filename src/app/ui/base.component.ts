@@ -1,9 +1,13 @@
-// Copyright 2020 Carnegie Mellon University. 
-// Released under a MIT (SEI) license. See LICENSE.md in the project root. 
+// Copyright 2020 Carnegie Mellon University.
+// Released under a MIT (SEI) license. See LICENSE.md in the project root.
 
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription, interval, timer } from 'rxjs';
 
+// TODO: Add Angular decorator.
+@Component({
+  template: ''
+})
 export abstract class BaseComponent implements OnDestroy {
   subs: Array<Subscription> = [];
   errors: Array<Error> = [];
