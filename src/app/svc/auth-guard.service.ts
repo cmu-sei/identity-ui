@@ -2,6 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root.
 
 import { Injectable } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SettingsService } from './settings.service';
 
@@ -10,7 +11,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     constructor(
         private config: SettingsService,
-        private router: Router
+        private router: Router,
+        private locationStrat: LocationStrategy
     ) {
     }
 
@@ -27,7 +29,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           }
 
           if (state.url !== '/') {
-            this.config.returnUrl = state.url;
+            this.config.returnUrl = this.locationStrat.prepareExternalUrl(state.url);
           }
 
           this.router.navigate(['/unauth']);
