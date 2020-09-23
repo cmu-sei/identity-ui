@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN $(npm bin)/ng build --prod --baseHref /ui/ --output-path /app/dist
+RUN $(npm bin)/ng build --prod --output-path /app/dist
 RUN sed -i s/##COMMIT##/"$commit"/ /app/dist/assets/settings.json
 CMD ["npm", "serve"]
 
@@ -16,8 +16,7 @@ CMD ["npm", "serve"]
 #
 FROM nginx:alpine
 WORKDIR /var/www
-COPY --from=dev /app/dist ui
+COPY --from=dev /app/dist .
 COPY --from=dev /app/LICENSE.md ui/LICENSE.md
-COPY --from=dev /app/dist/index.html .
 COPY --from=dev /app/nginx-static.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
