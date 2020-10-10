@@ -60,6 +60,16 @@
       </tr>
 
       <tr>
+        <th class="text-right">Email</th>
+        <td class="text-left">
+          <input *ngIf="emailVisible" type="text" [(ngModel)]="email" class="form-control" placeholder="email">
+          <button class="btn btn-secondary py-0 px-3 mr-2"
+            (click)="addEmail()" aria-label="enter additional email address">&#xff0b;</button>
+          <span *ngIf="emailError" class="text-warning">{{ emailError | spaces }}</span>
+        </td>
+      </tr>
+
+      <tr>
         <th class="text-right">Since</th>
         <td class="text-left">{{account.whenCreated | date }}</td>
       </tr>
@@ -72,11 +82,14 @@
     </tbody>
   </table>
 
+
   <small class="text-muted" aria-label="account id">{{account?.globalId}}</small>
 
   <hr />
 
-  <!-- <app-confirm-button name="Delete" classlist="btn btn-secondary" (value)="delete($event)">
+<!--
+  <app-confirm-button name="Delete" classlist="btn btn-secondary" (value)="delete($event)">
     Are you sure you want to delete this account?
-  </app-confirm-button> -->
+  </app-confirm-button>
+-->
 </div>

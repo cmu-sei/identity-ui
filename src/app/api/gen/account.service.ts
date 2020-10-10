@@ -50,4 +50,7 @@ export class GeneratedAccountService extends GeneratedService {
     public mailbatch(model: MailMessage): Observable<any> {
       return this.http.post<any>(this.api.url + '/api/account/mailbatch', model);
     }
+    public addtoken(id: string, username: string): Observable<any> {
+      return this.http.put<any>(this.api.url + '/api/account/' + id + '/token', { username });
+    }
 }

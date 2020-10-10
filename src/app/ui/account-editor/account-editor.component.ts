@@ -1,10 +1,11 @@
-// Copyright 2020 Carnegie Mellon University. 
-// Released under a MIT (SEI) license. See LICENSE.md in the project root. 
+// Copyright 2020 Carnegie Mellon University.
+// Released under a MIT (SEI) license. See LICENSE.md in the project root.
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Account } from 'src/app/api/gen/models';
 import { AccountService } from 'src/app/api/account.service';
 import { BaseComponent } from '../base.component';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-account-editor',
@@ -15,6 +16,9 @@ export class AccountEditorComponent extends BaseComponent implements OnInit {
   @Input() account: Account;
   @Output() deleted = new EventEmitter<Account>();
   newCode = '';
+  email = '';
+  emailVisible = false;
+  emailError = '';
 
   constructor(
     private accountSvc: AccountService
@@ -98,5 +102,25 @@ export class AccountEditorComponent extends BaseComponent implements OnInit {
       )
 
     );
+  }
+
+  addEmail() {
+    if (this.email) {
+      // send
+      this.accountSvc.addtoken(this.account.globalId, this.email).subscribe(
+        () => {
+          this.account.properties.push({key: 'email', value: this.email });
+          this.email = '';
+          this.emailError = '';
+          this.emailVisible = false;
+        },
+        (err) => {
+          this.emailError = err.error.message || err.message;
+        }
+      );
+    } else {
+      this.emailVisible = !this.emailVisible;
+    }
+
   }
 }
