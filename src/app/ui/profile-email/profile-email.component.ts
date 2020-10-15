@@ -71,7 +71,7 @@ export class ProfileEmailComponent extends BaseComponent implements OnInit {
 
   validDomain(ctx: any, model: TokenSummary): any {
 
-    if (!ctx.value || model.certificateCount > 0 || !model.allowedDomains) {
+    if (!ctx.value || !model.allowedDomains) {
       return null;
     }
 
