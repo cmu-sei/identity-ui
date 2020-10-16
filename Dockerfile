@@ -21,6 +21,6 @@ WORKDIR /var/www
 COPY --from=dev /app/dist .
 COPY --from=dev /app/LICENSE.md LICENSE.md
 COPY --from=dev /app/nginx-static.conf /etc/nginx/conf.d/default.conf
-COPY --from=dev /app/nginx-basehref.sh /docker-entrypoint.d/90-basehref
-RUN chmod +x /docker-entrypoint.d/90-basehref
+COPY --from=dev /app/nginx-basehref.sh /docker-entrypoint.d/90-basehref.sh
+RUN chmod +x /docker-entrypoint.d/90-basehref.sh
 EXPOSE 80
