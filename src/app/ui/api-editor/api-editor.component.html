@@ -43,6 +43,18 @@
 
         </app-collapse-panel>
 
+        <app-collapse-panel label="Api Secrets">
+
+          <button type="button" class="btn btn-secondary" (click)="newSecret()">Generate New Secret</button>
+          <p class="form-text text-muted"><small>
+            Secret only visible immediately after generation.
+          </small></p>
+
+          <app-input-list label="" field="secrets" [control]="form.controls.secrets">
+          </app-input-list>
+
+        </app-collapse-panel>
+
         <div class="text-center">
 
           <app-error-list [errors]="errors"></app-error-list>

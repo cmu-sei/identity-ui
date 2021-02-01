@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root.
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Resource, ResourceTypeEnum } from 'src/app/api/gen/models';
+import { Resource, ResourceTypeEnum, ApiSecret } from 'src/app/api/gen/models';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import { ResourceService } from 'src/app/api/resource.service';
@@ -66,8 +66,8 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
       default: [resource.default],
       enabled: [{ value: resource.enabled, disabled: !this.privileged}],
       type: [ResourceTypeEnum.api],
-      managers: [resource.managers]
-
+      managers: [resource.managers],
+      secrets: [ resource.secrets ]
     });
   }
 
@@ -88,6 +88,16 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
 
     );
 
+  }
+
+  newSecret() {
+    this.subs.push(
+      this.resourceSvc.generateSecret(this.resource.id).subscribe(
+        (secret: ApiSecret) => {
+          this.form.controls.secrets.value.push(secret);
+        }
+      )
+    );
   }
 
   newInvite() {

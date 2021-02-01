@@ -119,8 +119,14 @@ export interface Resource {
     required?: boolean;
     emphasize?: boolean;
     showInDiscoveryDocument?: boolean;
+    secrets?: Array<ApiSecret>;
     claims?: Array<ResourceClaim>;
     managers?: Array<ResourceManager>;
+}
+
+export interface ApiSecret {
+    id?: number;
+    value?: string;
 }
 
 export interface ResourceManager {
