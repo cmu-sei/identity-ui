@@ -18,6 +18,11 @@
             maxlength="100" [control]="form.controls.displayName">
           </app-input-text>
 
+          <app-input-text label="User Claims" field="userClaims"
+            maxlength="200" [control]="form.controls.userClaims">
+            Some user claims must be set by an administrator.
+          </app-input-text>
+
           <app-input-checkbox label="Public Resource" field="default"
             [control]="form.controls.default">
             By default, only clients you manage can request this resource.

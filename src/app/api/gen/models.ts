@@ -119,6 +119,7 @@ export interface Resource {
     required?: boolean;
     emphasize?: boolean;
     showInDiscoveryDocument?: boolean;
+    userClaims?: string;
     secrets?: Array<ApiSecret>;
     claims?: Array<ResourceClaim>;
     managers?: Array<ResourceManager>;

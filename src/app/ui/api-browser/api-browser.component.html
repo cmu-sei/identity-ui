@@ -34,8 +34,8 @@
       <tbody>
         <tr *ngFor="let r of identityResources | async">
           <td class="text-left"><span *ngIf="r.default" aria-label="public">&#x2713;</span></td>
-          <td class="text-left">{{r.name}}</td>
-          <td class="text-left text-muted">{{r.description}}</td>
+          <td class="text-left">{{r.scopes}}</td>
+          <td class="text-left text-muted">{{r.userClaims}}</td>
         </tr>
       </tbody>
     </table>
