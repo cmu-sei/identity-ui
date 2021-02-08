@@ -18,6 +18,11 @@
             maxlength="100" [control]="form.controls.displayName">
           </app-input-text>
 
+          <app-input-text label="Scopes" field="scopes"
+            maxlength="200" [control]="form.controls.scopes">
+            Prefix additional scopes with the resource name.
+          </app-input-text>
+
           <app-input-text label="User Claims" field="userClaims"
             maxlength="200" [control]="form.controls.userClaims">
             Some user claims must be set by an administrator.

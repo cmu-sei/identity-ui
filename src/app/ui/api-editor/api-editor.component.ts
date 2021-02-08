@@ -63,6 +63,7 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
       id: [resource.id],
       name: [resource.name, Validators.required],
       displayName: [resource.displayName],
+      scopes: [resource.scopes],
       userClaims: [resource.userClaims],
       default: [resource.default],
       enabled: [{ value: resource.enabled, disabled: !this.privileged}],
