@@ -13,6 +13,7 @@ export class InputKeyValueComponent implements OnInit {
   @Input() label = '';
   @Input() field = '';
   @Input() keyplaceholder = 'Key';
+  @Input() keyname = 'key';
   @Input() valueplaceholder = 'Value';
   @Input() maxlength = 100;
   @Input() control: AbstractControl;
@@ -31,7 +32,7 @@ export class InputKeyValueComponent implements OnInit {
   }
 
   getPair(item: ListPair): string {
-    return `${item.type?.trim()} = ${item.value?.trim()}`;
+    return `${item[this.keyname]?.trim()} = ${item.value?.trim()}`;
   }
 
   addPair() {
@@ -55,7 +56,6 @@ export class InputKeyValueComponent implements OnInit {
 
 export interface ListPair {
   id?: string | number;
-  type?: string; // IdentityServer uses 'Type' as 'Key'
   value?: string;
   deleted?: boolean;
 }
