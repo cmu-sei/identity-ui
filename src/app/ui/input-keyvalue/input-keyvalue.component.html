@@ -1,0 +1,31 @@
+<div *ngIf="control" class="form-group mb-4">
+
+  <label [for]="field">{{label}}</label>
+
+  <div class="input-group mb-2">
+    <input type="text" class="form-control mr-1" [id]="keyfield"
+      [placeholder]="keyplaceholder" [maxlength]="maxlength"
+      autocomplete="off" [formControl]="keyinput" />
+    <input type="text" class="form-control" [id]="valuefield"
+      [placeholder]="valueplaceholder" [maxlength]="maxlength"
+      autocomplete="off" [formControl]="valueinput" />
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"
+        [disabled]="!keyinput.value?.trim() || !valueinput.value?.trim()" (click)="addPair()" aria-label="add key value pair to list">+</button>
+    </div>
+  </div>
+  <small class="form-text text-muted">
+    <ng-content></ng-content>
+  </small>
+
+
+  <div *ngFor="let item of control.value">
+    <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
+      aria-label="toggle remove undo" (click)="removePair(item)">
+      {{item.deleted ? "&#x27f2;" : "&#x2717;"}}
+    </button>
+    <span *ngIf="item.deleted" aria-label="list item"><del>{{getPair(item)}}</del></span>
+    <span *ngIf="!item.deleted" aria-label="list item">{{getPair(item)}}</span>
+  </div>
+
+</div>

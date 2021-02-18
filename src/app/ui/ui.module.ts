@@ -39,6 +39,7 @@ import { ProfileMergeComponent } from './profile-merge/profile-merge.component';
 import { UnauthComponent } from './unauth/unauth.component';
 import { HomeComponent } from './home/home.component';
 import { AccountMailerComponent } from './account-mailer/account-mailer.component';
+import { InputKeyValueComponent } from './input-keyvalue/input-keyvalue.component';
 @NgModule({
   declarations: [ProfileComponent, TotpComponent, ClientEditorComponent, ResourceNavComponent,
     ApiEditorComponent, ApiBrowserComponent, ClientBrowserComponent, AccountBrowserComponent, AccountEditorComponent,
@@ -46,7 +47,7 @@ import { AccountMailerComponent } from './account-mailer/account-mailer.componen
     InputTextComponent, EnlistManagerComponent, ConfirmButtonComponent, BackButtonComponent, AccountImportComponent,
     OverrideCodeComponent, SpacesPipe, ErrorListComponent,
     ProfileCredsComponent, ProfileEditComponent, ProfilePasswordComponent, ProfileEmailComponent, ProfileMergeComponent,
-    UnauthComponent, HomeComponent, AccountMailerComponent
+    UnauthComponent, HomeComponent, AccountMailerComponent, InputKeyValueComponent
   ],
   imports: [
     CommonModule,

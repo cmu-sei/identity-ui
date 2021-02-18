@@ -18,6 +18,16 @@
             maxlength="100" [control]="form.controls.displayName">
           </app-input-text>
 
+          <app-input-text label="Scopes" field="scopes"
+            maxlength="200" [control]="form.controls.scopes">
+            Prefix additional scopes with the resource name.
+          </app-input-text>
+
+          <app-input-text label="User Claims" field="userClaims"
+            maxlength="200" [control]="form.controls.userClaims">
+            Some user claims must be set by an administrator.
+          </app-input-text>
+
           <app-input-checkbox label="Public Resource" field="default"
             [control]="form.controls.default">
             By default, only clients you manage can request this resource.
@@ -39,6 +49,18 @@
           </small></p>
 
           <app-input-list label="" field="managers" [control]="form.controls.managers">
+          </app-input-list>
+
+        </app-collapse-panel>
+
+        <app-collapse-panel label="Api Secrets">
+
+          <button type="button" class="btn btn-secondary" (click)="newSecret()">Generate New Secret</button>
+          <p class="form-text text-muted"><small>
+            Secret only visible immediately after generation.
+          </small></p>
+
+          <app-input-list label="" field="secrets" [control]="form.controls.secrets">
           </app-input-list>
 
         </app-collapse-panel>

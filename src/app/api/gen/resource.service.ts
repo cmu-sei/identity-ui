@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiSettings } from '../api-settings';
 import { GeneratedService } from './_service';
-import { ChangedResource, NewResource, Resource, SearchParams } from './models';
+import { ChangedResource, NewResource, Resource, ApiSecret, SearchParams } from './models';
 
 @Injectable()
 export class GeneratedResourceService extends GeneratedService {
@@ -34,5 +34,8 @@ export class GeneratedResourceService extends GeneratedService {
     }
     public generateInvite(id: number): Observable<any> {
       return this.http.put<any>(this.api.url + '/api/resource/' + id + '/code', {});
+    }
+    public generateSecret(id: number): Observable<ApiSecret> {
+        return this.http.put<ApiSecret>(this.api.url + '/api/resource/' + id + '/secret', {});
     }
 }
