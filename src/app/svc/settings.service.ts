@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, tap, switchMap } from 'rxjs/operators';
 import { of, forkJoin, Observable } from 'rxjs';
 import { AuthProfile } from '../api/gen/models';
+import { LocationStrategy } from '@angular/common';
 
 @Injectable()
 export class SettingsService {
@@ -20,12 +21,17 @@ export class SettingsService {
 
   constructor(
     private http: HttpClient,
+    private loc: LocationStrategy
   ) {
 
   }
 
   public isPrivilegedUser() {
     return this.user.role && this.user.role !== 'member';
+  }
+
+  public selfUrl(): string {
+    return `${window.location.protocol}//${window.location.host}${this.loc.getBaseHref()}`;
   }
 
   public load(): Promise<boolean> {

@@ -107,7 +107,8 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
 
       this.resourceSvc.generateInvite(this.resource.id).subscribe(
         (invite) => {
-          this.clipboardSvc.copyToClipboard(invite.url);
+          const url = `${this.config.selfUrl()}resource/enlist/${invite.code}`;
+          this.clipboardSvc.copyToClipboard(url);
           this.invited = true;
           this.subs.push(
             timer(4000).subscribe(() => this.invited = false)
