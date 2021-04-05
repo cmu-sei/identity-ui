@@ -10,6 +10,7 @@ import { ApiModule } from './api/gen/api.module';
 import { SvcModule } from './svc/svc.module';
 import { UiModule } from './ui/ui.module';
 import { QRCodeModule } from 'angularx-qrcode';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { QRCodeModule } from 'angularx-qrcode';
     AppRoutingModule,
     QRCodeModule
   ],
-  providers: [ QRCodeModule],
+  providers: [
+    QRCodeModule,
+    {provide: LocationStrategy, useClass: PathLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

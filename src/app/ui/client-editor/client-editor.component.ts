@@ -150,7 +150,8 @@ export class ClientEditorComponent extends BaseComponent implements OnInit {
 
       this.clientSvc.generateInvite(this.client.id).subscribe(
         (invite) => {
-          this.clipboardSvc.copyToClipboard(invite.url);
+          const url = `${this.config.selfUrl()}client/enlist/${invite.code}`;
+          this.clipboardSvc.copyToClipboard(url);
           this.invited = true;
           this.subs.push(
             timer(4000).subscribe(() => this.invited = false)
