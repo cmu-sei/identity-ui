@@ -318,9 +318,22 @@ export interface SearchParams {
 
 export interface MailMessage {
   to?: string;
+  groups?: RecipientGroups;
   cc?: string;
   bcc?: string;
   from?: string;
   subject?: string;
   body?: string;
+}
+
+export interface RecipientGroups {
+  name?: string;
+  members?: string[];
+}
+
+export interface MailMessageStatus {
+  referencId: string;
+  messageId: string;
+  status: string;
+  timestamp: Date;
 }

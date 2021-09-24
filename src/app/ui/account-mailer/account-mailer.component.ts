@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import { AccountService } from 'src/app/api/account.service';
-import { MailMessage } from 'src/app/api/gen/models';
+import { MailMessage, MailMessageStatus } from 'src/app/api/gen/models';
 
 @Component({
   selector: 'app-account-mailer',
@@ -12,17 +12,20 @@ import { MailMessage } from 'src/app/api/gen/models';
 export class AccountMailerComponent extends BaseComponent implements OnInit {
   @Input() email = '';
   recipient: FormControl;
+  groups: FormControl;
   cc: FormControl;
   bcc: FormControl;
   message: FormControl;
   subject: FormControl;
   from: FormControl;
+  responses: MailMessageStatus[] = [];
 
   constructor(
     private accountSvc: AccountService
   ) {
     super();
     this.recipient = new FormControl(this.email, Validators.required);
+    this.groups = new FormControl('');
     this.cc = new FormControl('', Validators.required);
     this.bcc = new FormControl('', Validators.required);
     this.subject = new FormControl('', Validators.required);
@@ -37,26 +40,36 @@ export class AccountMailerComponent extends BaseComponent implements OnInit {
     this.startProgress();
 
     const model: MailMessage = {
-      to: this.recipient.value.split(';'),
+      to: this.recipient.value?.split(';') || [],
       cc: this.cc.value.split(';'),
       bcc: this.bcc.value.split(';'),
       from: this.from.value,
       subject: this.subject.value,
-      body: this.message.value
+      body: this.message.value,
+      groups: JSON.parse(this.groups.value || '[]')
     };
-
-    const query = model.to[0].startsWith('@')
-      ? this.accountSvc.mailbatch(model)
-      : this.accountSvc.mail(model);
 
     this.subs.push(
 
-      query.subscribe(
-        () => this.recipient.reset(),
+      this.accountSvc.mail(model).subscribe(
+        (result) => {
+          this.recipient.reset();
+          this.groups.reset();
+          this.responses = result;
+        },
         (err) => this.onError(err),
         () => this.endProgress(true)
       )
 
+    );
+  }
+
+  status(): void {
+    this.subs.push(
+      this.accountSvc.verifymail(
+        this.responses.filter(r => r.status !== 'success')
+      )
+      .subscribe(result => this.responses = result)
     );
   }
 }

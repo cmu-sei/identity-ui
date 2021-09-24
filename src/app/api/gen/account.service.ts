@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiSettings } from '../api-settings';
 import { GeneratedService } from './_service';
-import { Account, SearchParams, UsernameRegistrationModel, UsernameRegistration, MailMessage } from './models';
+import { Account, SearchParams, UsernameRegistrationModel, UsernameRegistration, MailMessage, MailMessageStatus } from './models';
 
 @Injectable()
 export class GeneratedAccountService extends GeneratedService {
@@ -47,8 +47,8 @@ export class GeneratedAccountService extends GeneratedService {
     public mail(model: MailMessage): Observable<any> {
       return this.http.post<any>(this.api.url + '/api/account/mail', model);
     }
-    public mailbatch(model: MailMessage): Observable<any> {
-      return this.http.post<any>(this.api.url + '/api/account/mailbatch', model);
+    public verifymail(model: MailMessageStatus[]): Observable<MailMessageStatus[]> {
+      return this.http.post<MailMessageStatus[]>(this.api.url + '/api/account/mailverify', model);
     }
     public addtoken(id: string, username: string): Observable<any> {
       return this.http.put<any>(this.api.url + '/api/account/' + id + '/token', { username });
