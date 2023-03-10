@@ -1,15 +1,13 @@
 #
 #multi-stage target: dev
 #
-FROM node:16 as dev
+FROM node:18 as dev
 ARG commit
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
 RUN $(npm bin)/ng build --prod --output-path /app/dist
-RUN sed -i s/##COMMIT##/"$commit"/ /app/dist/assets/settings.json && \
-    echo "$commit" > /app/dist/commit.txt
 
 CMD ["npm", "serve"]
 
@@ -18,6 +16,7 @@ CMD ["npm", "serve"]
 #
 FROM nginx:alpine
 WORKDIR /var/www
+ENV COMMIT=$commit
 COPY --from=dev /app/dist .
 COPY --from=dev /app/LICENSE.md LICENSE.md
 COPY --from=dev /app/nginx-static.conf /etc/nginx/conf.d/default.conf
