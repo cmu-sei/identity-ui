@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root. 
 
 import { Component, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-keyvalue',
@@ -20,8 +20,8 @@ export class InputKeyValueComponent implements OnInit {
   keyfield = '';
   valuefield = '';
   items: Array<ListPair> = [];
-  keyinput = new FormControl('');
-  valueinput = new FormControl('');
+  keyinput = new UntypedFormControl('');
+  valueinput = new UntypedFormControl('');
   
   constructor() { 
   }

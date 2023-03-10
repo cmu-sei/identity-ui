@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import { AccountService } from 'src/app/api/account.service';
 import { MailMessage, MailMessageStatus } from 'src/app/api/gen/models';
@@ -11,26 +11,26 @@ import { MailMessage, MailMessageStatus } from 'src/app/api/gen/models';
 })
 export class AccountMailerComponent extends BaseComponent implements OnInit {
   @Input() email = '';
-  recipient: FormControl;
-  groups: FormControl;
-  cc: FormControl;
-  bcc: FormControl;
-  message: FormControl;
-  subject: FormControl;
-  from: FormControl;
+  recipient: UntypedFormControl;
+  groups: UntypedFormControl;
+  cc: UntypedFormControl;
+  bcc: UntypedFormControl;
+  message: UntypedFormControl;
+  subject: UntypedFormControl;
+  from: UntypedFormControl;
   responses: MailMessageStatus[] = [];
 
   constructor(
     private accountSvc: AccountService
   ) {
     super();
-    this.recipient = new FormControl(this.email, Validators.required);
-    this.groups = new FormControl('');
-    this.cc = new FormControl('', Validators.required);
-    this.bcc = new FormControl('', Validators.required);
-    this.subject = new FormControl('', Validators.required);
-    this.message = new FormControl('', Validators.required);
-    this.from = new FormControl('');
+    this.recipient = new UntypedFormControl(this.email, Validators.required);
+    this.groups = new UntypedFormControl('');
+    this.cc = new UntypedFormControl('', Validators.required);
+    this.bcc = new UntypedFormControl('', Validators.required);
+    this.subject = new UntypedFormControl('', Validators.required);
+    this.message = new UntypedFormControl('', Validators.required);
+    this.from = new UntypedFormControl('');
   }
 
   ngOnInit(): void {

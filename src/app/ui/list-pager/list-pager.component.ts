@@ -4,7 +4,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { BaseComponent } from '../base.component';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { SearchParams } from 'src/app/api/gen/models';
 
 @Component({
@@ -17,7 +17,7 @@ export class ListPagerComponent extends BaseComponent implements OnInit {
   @Input() count: number;
   @Output() changed = new EventEmitter<SearchParams>();
 
-  term = new FormControl('');
+  term = new UntypedFormControl('');
 
   constructor() {
     super();

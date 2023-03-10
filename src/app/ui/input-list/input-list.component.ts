@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root. 
 
 import { Component, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-list',
@@ -16,7 +16,7 @@ export class InputListComponent implements OnInit {
   @Input() maxlength = 100;
   @Input() control: AbstractControl;
   items: Array<ListItem> = [];
-  input = new FormControl('');
+  input = new UntypedFormControl('');
 
   constructor() { }
 

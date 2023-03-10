@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root.
 
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { TokenSummary } from 'src/app/api/gen/models';
 import { ProfileService } from 'src/app/api/profile.service';
 import { BaseComponent } from '../base.component';
@@ -14,11 +14,11 @@ import { BaseComponent } from '../base.component';
 })
 export class ProfilePasswordComponent extends BaseComponent implements OnInit {
   @Input() model: TokenSummary;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     private profileSvc: ProfileService,
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     super();
   }
@@ -37,7 +37,7 @@ export class ProfilePasswordComponent extends BaseComponent implements OnInit {
 
   }
 
-  sameValue(group: FormGroup) {
+  sameValue(group: UntypedFormGroup) {
     const value = group.get('value').value;
     const confirm = group.get('confirm').value;
     return value === confirm ? null : { notSame: true };
