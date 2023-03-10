@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN ng build --prod --output-path /app/dist
+RUN npm build --prod --output-path /app/dist
 
 CMD ["npm", "serve"]
 
