@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root. 
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { UsernameRegistration } from '../../api/gen/models';
 import { BaseComponent } from '../base.component';
 import { AccountService } from 'src/app/api/account.service';
@@ -13,16 +13,16 @@ import { AccountService } from 'src/app/api/account.service';
   styleUrls: ['./account-import.component.scss']
 })
 export class AccountImportComponent extends BaseComponent implements OnInit {
-  input: FormControl;
-  passwd: FormControl;
+  input: UntypedFormControl;
+  passwd: UntypedFormControl;
   results: UsernameRegistration[];
 
   constructor(
     private accountSvc: AccountService
   ) {
     super();
-    this.input = new FormControl('', Validators.required);
-    this.passwd = new FormControl('');
+    this.input = new UntypedFormControl('', Validators.required);
+    this.passwd = new UntypedFormControl('');
   }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@
 // Released under a MIT (SEI) license. See LICENSE.md in the project root. 
 
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, UntypedFormControl } from '@angular/forms';
 import { TokenSummary } from 'src/app/api/gen/models';
 import { ProfileService } from 'src/app/api/profile.service';
 import { BaseComponent } from '../base.component';
@@ -16,7 +16,7 @@ export class ProfileMergeComponent extends BaseComponent implements OnInit {
   @Input() model: TokenSummary;
   discardCode = '';
   mergeResult = '';
-  mergeForm = new FormControl();
+  mergeForm = new UntypedFormControl();
 
   constructor(
     private profileSvc: ProfileService,

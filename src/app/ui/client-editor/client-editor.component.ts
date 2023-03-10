@@ -8,7 +8,7 @@ import { Client, ClientSecret } from 'src/app/api/gen/models';
 import { ClientService } from 'src/app/api/client.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of, timer } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ClipboardService } from 'src/app/svc/clipboard.service';
 import { SettingsService } from 'src/app/svc/settings.service';
 
@@ -22,7 +22,7 @@ export class ClientEditorComponent extends BaseComponent implements OnInit {
   @Output() deleted = new EventEmitter();
   @Output() updated = new EventEmitter<Client>();
   client: Client;
-  form: FormGroup;
+  form: UntypedFormGroup;
   invited = false;
   privileged = false;
 
@@ -30,7 +30,7 @@ export class ClientEditorComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private clientSvc: ClientService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private clipboardSvc: ClipboardService,
     private config: SettingsService
   ) {

@@ -3,7 +3,7 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Resource, ResourceTypeEnum, ApiSecret } from 'src/app/api/gen/models';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import { ResourceService } from 'src/app/api/resource.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
   @Output() deleted = new EventEmitter();
   @Output() updated = new EventEmitter<Resource>();
   resource: Resource;
-  form: FormGroup;
+  form: UntypedFormGroup;
   invited = false;
   privileged = false;
 
@@ -30,7 +30,7 @@ export class ApiEditorComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private resourceSvc: ResourceService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private clipboardSvc: ClipboardService,
     private config: SettingsService
   ) {

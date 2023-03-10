@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OverrideService } from 'src/app/api/override.service';
 import { BaseComponent } from '../base.component';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { OverrideCode } from 'src/app/api/gen/models';
 
 @Component({
@@ -13,12 +13,12 @@ import { OverrideCode } from 'src/app/api/gen/models';
   styleUrls: ['./override-code.component.scss']
 })
 export class OverrideCodeComponent extends BaseComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   codes: OverrideCode[] = [];
 
   constructor(
     private codesSvc: OverrideService,
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     super();
 
